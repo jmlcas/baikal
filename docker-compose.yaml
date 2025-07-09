@@ -1,0 +1,23 @@
+services:
+
+  baikal:
+    image: ckulka/baikal:latest
+    container_name: baikal
+    restart: unless-stopped
+    ports:
+      - "8200:80"
+    volumes:
+      - ./config:/var/www/baikal/config
+      - ./data:/var/www/baikal/Specific
+
+  db:
+    image: mariadb:latest
+    container_name: baikal-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: p4ssw0rd
+      MYSQL_DATABASE: baikal
+      MYSQL_USER: baikal
+      MYSQL_PASSWORD: p4ssw0rd
+    volumes:
+      - ./db:/var/lib/mysql
